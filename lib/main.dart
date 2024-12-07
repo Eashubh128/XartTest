@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:xarttest/views/custom_widgets/match_result_sheet.dart';
 
@@ -25,9 +26,13 @@ class MyApp extends StatelessWidget {
           onTap: () async {
             showModalBottomSheet(
                 context: context,
+                isScrollControlled: true,
                 builder: (context) {
-                  return MatchResultSheet(
-                      backgroundColor: const Color(0xFF228033));
+                  return Wrap(
+                    children: [
+                      MatchResultSheet(backgroundColor: const Color(0xFF47902e))
+                    ],
+                  );
                 });
           },
           child: const Text(

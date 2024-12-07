@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:xarttest/constants/asset_constants.dart';
 import 'package:xarttest/constants/color_constants.dart';
 import 'package:xarttest/constants/dimension_constants.dart';
 import 'package:xarttest/constants/font_constants.dart';
 import 'dart:math' as math;
 
 import 'package:xarttest/constants/string_constants.dart';
+import 'package:xarttest/views/custom_widgets/avatar_name_widget.dart';
 
 class MatchResultSheet extends StatelessWidget {
   final Color backgroundColor;
@@ -14,6 +16,7 @@ class MatchResultSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      height: DimensionConstants.bottomSheetHeight,
       padding: const EdgeInsets.only(
           left: DimensionConstants.padding5,
           right: DimensionConstants.padding5,
@@ -50,8 +53,9 @@ class MatchResultSheet extends StatelessWidget {
                 Navigator.pop(context);
               },
               icon: const Icon(
-                Icons.close,
+                Icons.close_rounded,
                 color: ColorConstants.white,
+                size: DimensionConstants.avatarSize,
               ),
             ),
           ),
@@ -61,15 +65,26 @@ class MatchResultSheet extends StatelessWidget {
               right: 0,
               child: Column(
                 children: [
-                  Text(
-                    'You Won',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: FontSizeConstants.font32,
-                      fontWeight: FontWeight.w500,
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'You Won 🎉',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: FontSizeConstants.font32,
+                          fontWeight: FontWeight.w500,
+                          shadows: <Shadow>[
+                            Shadow(
+                                offset: Offset(.5, .5),
+                                blurRadius: 5.0,
+                                color: ColorConstants.grey800),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                  SizedBox(height: DimensionConstants.spacing10),
+                  SizedBox(height: DimensionConstants.spacing5),
                   Text(
                     'Opponent lossed by Timeout',
                     style: TextStyle(
@@ -203,47 +218,6 @@ class MatchResultSheet extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class AvatarNNameWidget extends StatelessWidget {
-  String name;
-  String profileUrl;
-  AvatarNNameWidget({super.key, required this.name, required this.profileUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        CircleAvatar(
-          radius: DimensionConstants.borderRadius40,
-          backgroundColor: Colors.blue,
-          child: Padding(
-            padding: const EdgeInsets.all(DimensionConstants.buttonPadding),
-            child: Image.network(
-              profileUrl,
-              errorBuilder:
-                  (BuildContext context, Object error, StackTrace? stackTrace) {
-                return const CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 2.0,
-                );
-              },
-            ),
-          ),
-        ),
-        const SizedBox(height: DimensionConstants.spacing * 2),
-        Text(
-          name,
-          style: const TextStyle(
-            color: Colors.black,
-            fontSize: FontSizeConstants.font18,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-      ],
     );
   }
 }
